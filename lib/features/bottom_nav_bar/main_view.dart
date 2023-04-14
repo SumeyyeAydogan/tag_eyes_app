@@ -38,7 +38,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
         child: _myTabBar(),
       ),
     );
-    ;
+    
   }
 
   TabBar _myTabBar() {
