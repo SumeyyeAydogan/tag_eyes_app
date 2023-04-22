@@ -7,14 +7,7 @@ class CustomElevationButton extends StatefulWidget {
   final bool isCircle;
   final Color? primaryColor;
   final Size? minimumSize;
-  const CustomElevationButton(
-      {Key? key,
-      required this.onPressed,
-      required this.title,
-      this.isCircle = false,
-      this.primaryColor,
-      this.minimumSize})
-      : super(key: key);
+  const CustomElevationButton({Key? key, required this.onPressed, required this.title, this.isCircle = false, this.primaryColor, this.minimumSize}) : super(key: key);
 
   @override
   State<CustomElevationButton> createState() => _CustomElevationButtonState();
@@ -30,10 +23,11 @@ class _CustomElevationButtonState extends State<CustomElevationButton> {
     return ElevatedButton(
       onPressed: _completeProcess,
       style: ElevatedButton.styleFrom(
-          minimumSize: widget.minimumSize,
-          primary: context.theme.colorScheme.secondary,
-          shape: widget.isCircle ? const CircleBorder(side: BorderSide.none) : null),
-      child: Text(widget.title, style: context.textTheme.button),
+        minimumSize: widget.minimumSize,
+        backgroundColor: context.theme.colorScheme.secondary,
+        shape: widget.isCircle ? const CircleBorder(side: BorderSide.none) : null,
+      ),
+      child: Text(widget.title, style: context.textTheme.labelLarge),
     );
   }
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 class ImageConstants {
   static const String INTRODUCTION_BG = "introduction-bg";
   static const String LOGIN_BG = "login-bg";

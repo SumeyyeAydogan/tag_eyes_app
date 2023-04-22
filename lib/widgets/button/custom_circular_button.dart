@@ -4,8 +4,7 @@ class CustomCircularButton extends StatefulWidget {
   final bool isCircle;
   final Color? primaryColor;
   final Size? minimumSize;
-  const CustomCircularButton({Key? key, this.isCircle = false, this.primaryColor, this.minimumSize})
-      : super(key: key);
+  const CustomCircularButton({Key? key, this.isCircle = false, this.primaryColor, this.minimumSize}) : super(key: key);
 
   @override
   State<CustomCircularButton> createState() => _CustomCircularButtonState();
@@ -17,9 +16,10 @@ class _CustomCircularButtonState extends State<CustomCircularButton> {
     return ElevatedButton(
       onPressed: null,
       style: ElevatedButton.styleFrom(
-          minimumSize: widget.minimumSize,
-          primary: widget.primaryColor,
-          shape: widget.isCircle ? const CircleBorder() : null),
+        minimumSize: widget.minimumSize,
+        backgroundColor: widget.primaryColor,
+        shape: widget.isCircle ? const CircleBorder() : null,
+      ),
       child: const Center(child: CircularProgressIndicator()),
     );
   }

@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 class ButtonConstants {
   static const String LOGIN = "Giriş Yap";
   static const String SIGN_UP = "Kaydol";
@@ -5,7 +7,7 @@ class ButtonConstants {
   static const String BACK_LOGIN_PAGE = "Girişe Geri Dön";
   static const String SENDER = "Gönderici";
   static const String SEND = "Gönder";
-  static const String TAKE_PHOTO_START= "Teslimatı Başlat";
+  static const String TAKE_PHOTO_START = "Teslimatı Başlat";
   static const String TAKE_PHOTO_FINISH = "Teslimatı Bitir";
   static const String VERIFY = "Doğrula";
   static const String ORDER = "Teklif Ver";

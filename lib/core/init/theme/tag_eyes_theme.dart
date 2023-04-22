@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 
 class TagEyesTheme {
@@ -31,13 +33,11 @@ class TagEyesTheme {
         fontFamily: "Urbanist",
       ),
     ),
-    tabBarTheme: const TabBarTheme(
-        labelColor: Colors.black,
-        indicator:
-            UnderlineTabIndicator(borderSide: BorderSide(color: Colors.black))),
+    tabBarTheme: const TabBarTheme(labelColor: Colors.black, indicator: UnderlineTabIndicator(borderSide: BorderSide(color: Colors.black))),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(const Color(0xffFFCC52)),),
+        backgroundColor: MaterialStateProperty.all<Color>(const Color(0xffFFCC52)),
+      ),
     ),
     textButtonTheme: TextButtonThemeData(
       style: ButtonStyle(

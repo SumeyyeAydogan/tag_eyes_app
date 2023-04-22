@@ -9,26 +9,26 @@ class CustomPageContainer extends StatelessWidget {
   final Widget content;
   final String? assetImage;
   final String buttonText;
-  bool showCarrierAndSenderButton;
-  bool isSelect1;
-  bool isSelect2;
-  bool showProfilePhoto;
-  bool showCustomElevationButton;
-  CustomPageContainer(
-      {required this.flex,
-      this.flex2 = 8,
-      this.title = "",
-      required this.padding,
-      required this.content,
-      this.assetImage,
-      this.showCarrierAndSenderButton = false,
-      this.isSelect1 = false,
-      this.isSelect2 = false,
-      this.showProfilePhoto = false,
-      this.showCustomElevationButton = false,
-      this.buttonText = "",
-      Key? key})
-      : super(key: key);
+  final bool showCarrierAndSenderButton;
+  final bool isSelect1;
+  final bool isSelect2;
+  final bool showProfilePhoto;
+  final bool showCustomElevationButton;
+  const CustomPageContainer({
+    required this.flex,
+    this.flex2 = 8,
+    this.title = "",
+    required this.padding,
+    required this.content,
+    this.assetImage,
+    this.showCarrierAndSenderButton = false,
+    this.isSelect1 = false,
+    this.isSelect2 = false,
+    this.showProfilePhoto = false,
+    this.showCustomElevationButton = false,
+    this.buttonText = "",
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,32 +38,30 @@ class CustomPageContainer extends StatelessWidget {
       children: [
         //topBar(),
         Expanded(
-            flex: flex,
-            child: Container(
-              decoration: BoxDecoration(
-                  color: Colors.grey[50],
-                  borderRadius:
-                      const BorderRadius.vertical(top: Radius.circular(50))),
-              child: Padding(
-                padding: EdgeInsets.all(padding),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: context.paddingMediumVertical,
-                      child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            title,
-                            style: context.textTheme.headline1,
-                            textAlign: TextAlign.start,
-                          )),
-                    ),
-                    Expanded(flex: flex2, child: content),
-                  ],
-                ),
+          flex: flex,
+          child: Container(
+            decoration: BoxDecoration(color: Colors.grey[50], borderRadius: const BorderRadius.vertical(top: Radius.circular(50))),
+            child: Padding(
+              padding: EdgeInsets.all(padding),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: context.paddingMediumVertical,
+                    child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          title,
+                          style: context.textTheme.displayLarge,
+                          textAlign: TextAlign.start,
+                        )),
+                  ),
+                  Expanded(flex: flex2, child: content),
+                ],
               ),
-            )),
+            ),
+          ),
+        ),
       ],
     );
   }

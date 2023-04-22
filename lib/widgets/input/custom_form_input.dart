@@ -8,13 +8,10 @@ class LoginPasswordCustomField extends StatefulWidget {
   final TextEditingController? controller;
   final void Function(String?)? onSaved;
   final String? Function(String?)? validator;
-  const LoginPasswordCustomField(
-      {Key? key, this.title, this.controller, this.onSaved, this.validator})
-      : super(key: key);
+  const LoginPasswordCustomField({Key? key, this.title, this.controller, this.onSaved, this.validator}) : super(key: key);
 
   @override
-  _LoginPasswordCustomFieldState createState() =>
-      _LoginPasswordCustomFieldState();
+  State<LoginPasswordCustomField> createState() => _LoginPasswordCustomFieldState();
 }
 
 class _LoginPasswordCustomFieldState extends State<LoginPasswordCustomField> {
@@ -35,12 +32,13 @@ class _LoginPasswordCustomFieldState extends State<LoginPasswordCustomField> {
       onSaved: widget.onSaved,
       validator: widget.validator,
       suffixIcon: IconButton(
-          onPressed: () {
-            _changeSecure();
-          },
-          icon: SecureIcon(
-            isSecure: _isSecureText,
-          )),
+        onPressed: () {
+          _changeSecure();
+        },
+        icon: SecureIcon(
+          isSecure: _isSecureText,
+        ),
+      ),
     );
   }
 }

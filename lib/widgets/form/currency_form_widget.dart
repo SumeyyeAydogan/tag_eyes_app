@@ -1,27 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tag_eyes_app/core/extension/context_extension.dart';
+import 'package:tag_eyes_app/core/constants/application_constants.dart';
+import 'package:tag_eyes_app/core/constants/register_constants.dart';
 import 'package:tag_eyes_app/features/bottom_nav_bar/main_view.dart';
+import 'package:tag_eyes_app/widgets/button/custom_elevated_button.dart';
+import 'package:tag_eyes_app/widgets/input/login_form_input.dart';
 
-import '../../core/constants/application_constants.dart';
-import '../../core/constants/register_constants.dart';
-import '../button/custom_elevated_button.dart';
-import '../input/custom_form_input.dart';
-import '../input/login_form_input.dart';
+class CurrencyFormWidget extends StatefulWidget {
+  const CurrencyFormWidget({Key? key}) : super(key: key);
 
-class CurrencyFormWidget extends StatelessWidget {
-  CurrencyFormWidget({Key? key}) : super(key: key);
+  @override
+  State<CurrencyFormWidget> createState() => _CurrencyFormWidgetState();
+}
 
+class _CurrencyFormWidgetState extends State<CurrencyFormWidget> {
   final TextEditingController _fullName = TextEditingController();
-
   final TextEditingController _emailText = TextEditingController();
-
-  final TextEditingController _phoneNumber = TextEditingController();
-
-  final TextEditingController _passwordText = TextEditingController();
-
-  final TextEditingController _passwordTextRepeat = TextEditingController();
-
   final _registerFormKey = GlobalKey<FormState>();
 
   @override
@@ -31,27 +27,28 @@ class CurrencyFormWidget extends StatelessWidget {
       child: ListView(
         shrinkWrap: true,
         children: [
-          buildTextFormFieldPerson(context),
+          buildTextFormFieldName(context),
           buildTextFormFieldEmail(context),
-          buildTextFormFieldPhone(context),
-          buildTextFormFieldPhone(context),
+          const Text('Okutacağınız Para Birimi'),
+          buildTextFormFieldFirstCurr(context),
+          const Text('Dönüştürülecek Para Birimi'),
+          buildTextFormFieldSecondCurr(context),
           buildRegisterButton(context),
         ],
       ),
     );
   }
 
-  buildTextFormFieldPerson(BuildContext context) {
+  buildTextFormFieldName(BuildContext context) {
     return Padding(
       padding: context.paddingMediumVertical,
       child: LoginInputFormField(
-        title: "Currency",//CurrencyConstants.FULL_NAME,
+        hintText: 'İsminiz',
         controller: _fullName,
         onSaved: (value) {
           _fullName.text = value!;
         },
-        validator: FormBuilderValidators.required(
-            errorText: ApplicationConstants.VALIDATE_FORM_ERROR),
+        validator: FormBuilderValidators.required(errorText: ApplicationConstants.VALIDATE_FORM_ERROR),
       ),
     );
   }
@@ -61,61 +58,92 @@ class CurrencyFormWidget extends StatelessWidget {
       padding: context.paddingMediumVertical,
       child: LoginInputFormField(
         controller: _emailText,
-        title: "Currency",
+        hintText: 'Emailiniz',
         onSaved: (value) {
           _emailText.text = value!;
         },
-        validator: FormBuilderValidators.required(
-            errorText: ApplicationConstants.VALIDATE_FORM_ERROR),
+        validator: FormBuilderValidators.required(errorText: ApplicationConstants.VALIDATE_FORM_ERROR),
       ),
     );
   }
 
-  buildTextFormFieldPhone(BuildContext context) {
+  List<String> dropdownButtonList1 = [
+    'USD',
+    'EUR',
+    'GBP',
+    'CHF',
+    'TRY',
+  ];
+  List<String> dropdownButtonList2 = [
+    'USD',
+    'EUR',
+    'GBP',
+    'CHF',
+    'TRY',
+  ];
+
+  String dropdownValue1 = 'TRY';
+  String dropdownValue2 = 'USD';
+
+  buildTextFormFieldFirstCurr(BuildContext context) {
     return Padding(
-      padding: context.paddingMediumVertical,
-      child: LoginInputFormField(
-        title: "Currency",
-        controller: _phoneNumber,
-        onSaved: (value) {
-          _phoneNumber.text = value!;
-        },
-        validator: FormBuilderValidators.required(
-            errorText: ApplicationConstants.VALIDATE_FORM_ERROR),
+      padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton(
+          hint: const Text('Çevrilecek Para Birimi'),
+          value: dropdownValue1,
+          items: dropdownButtonList1.map((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value, style: const TextStyle(color: Colors.white, fontSize: 18)),
+            );
+          }).toList(),
+          selectedItemBuilder: (context) {
+            return dropdownButtonList1.map((String value) {
+              return Text(value, style: const TextStyle(color: Colors.black, fontSize: 18));
+            }).toList();
+          },
+          onChanged: (value) {
+            setState(() {
+              dropdownValue1 = value.toString();
+            });
+          },
+          borderRadius: BorderRadius.circular(10),
+          dropdownColor: Colors.black,
+        ),
       ),
     );
   }
 
-  buildTextFormFieldPassword(BuildContext context) {
+  buildTextFormFieldSecondCurr(BuildContext context) {
     return Padding(
-      padding: context.paddingMediumVertical,
-      child: LoginPasswordCustomField(
-        controller: _passwordText,
-        title: "Currency",
-        onSaved: (value) {
-          _passwordText.text = value!;
-        },
-        validator: FormBuilderValidators.required(
-            errorText: ApplicationConstants.VALIDATE_FORM_ERROR),
+      padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton(
+          hint: const Text('Dönüştürülecek Para Birimi'),
+          value: dropdownValue2,
+          items: dropdownButtonList2.map((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value, style: const TextStyle(color: Colors.white, fontSize: 18)),
+            );
+          }).toList(),
+          selectedItemBuilder: (context) {
+            return dropdownButtonList2.map((String value) {
+              return Text(value, style: const TextStyle(color: Colors.black, fontSize: 18));
+            }).toList();
+          },
+          onChanged: (value) {
+            setState(() {
+              dropdownValue2 = value.toString();
+            });
+          },
+          borderRadius: BorderRadius.circular(10),
+          dropdownColor: Colors.black,
+        ),
       ),
     );
   }
-
-  buildTextFormFieldPasswordAgain(BuildContext context) {
-    return Padding(
-      padding: context.paddingMediumVertical,
-      child: LoginPasswordCustomField(
-        controller: _passwordTextRepeat,
-        title: "Currency",
-        onSaved: (value) {
-          _passwordText.text = value!;
-        },
-        validator: FormBuilderValidators.required(
-            errorText: ApplicationConstants.VALIDATE_FORM_ERROR),
-      ),
-    );
-  }
- 
 
   buildRegisterButton(BuildContext context) {
     return Padding(
@@ -124,30 +152,19 @@ class CurrencyFormWidget extends StatelessWidget {
         //primaryColor: context.theme.colorScheme.primary,
         minimumSize: Size(context.width, context.highValue),
         onPressed: () async {
-          if (_registerFormKey.currentState != null &&
-              _registerFormKey.currentState!.validate()) {
+          if (_registerFormKey.currentState != null && _registerFormKey.currentState!.validate()) {
             _registerFormKey.currentState!.save();
-            await /* RegisterRequestModel(
-                id: "id",
-                email: _emailText.text,
-                password: _passwordText.text,
-                fullName: _fullName.text,
-                gainTotalNumber: 0,
-                identityBirthDay: "identityBirthDay",
-                identityFirstName: "identityFirstName",
-                identityLastName: "identityLastName",
-                identityNumber: "identityNumber",
-                isIdentity: "isIdentity",
-                phone: _phoneNumber.text,
-                phoneAuth: false,
-                profileImage: "profileImage",
-                senderTotalNumber: 0,
-                transportTotalNumber: 0); */
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => const MainPage()));
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            prefs.setBool('isLogin', true);
+            prefs.setString('fullName', _fullName.text);
+            prefs.setString('email', _emailText.text);
+            prefs.setString('firstCurr', dropdownValue1);
+            prefs.setString('secondCurr', dropdownValue2);
+            if (!mounted) return;
+            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const MainPage()), (route) => false);
           }
         },
-        title: CurrencyConstants.REGISTER,
+        title: CurrencyConstants.RESUME,
       ),
     );
   }
