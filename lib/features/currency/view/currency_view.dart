@@ -8,25 +8,26 @@ class CurrencyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.only(top: 200),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(40)),
-            color: context.theme.colorScheme.primary,
-          ),
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: context.height,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Expanded(
-                flex: 0,
-                child: Container(
-                  color: Colors.white, //Colors.transparent,
-                ),
+              Text(
+                'Currency Converter',
+                style: context.textTheme.headlineSmall!.copyWith(color: context.theme.colorScheme.primary, fontSize: 36),
               ),
-              Padding(
-                padding: context.paddingHighVerticalAndHorizontal,
-                child: const CurrencyFormWidget(),
+              const SizedBox(height: 100),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(40)),
+                  color: context.theme.colorScheme.primary,
+                ),
+                child: Padding(
+                  padding: context.paddingHighVerticalAndHorizontal,
+                  child: const CurrencyFormWidget(),
+                ),
               ),
             ],
           ),
