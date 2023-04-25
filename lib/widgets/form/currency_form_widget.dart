@@ -30,9 +30,10 @@ class _CurrencyFormWidgetState extends State<CurrencyFormWidget> {
         children: [
           buildTextFormFieldName(context),
           buildTextFormFieldEmail(context),
-          const Text('Okutacağınız Para Birimi'),
+          const Text('Which currency do you use?'),
           buildTextFormFieldFirstCurr(context),
-          const Text('Dönüştürülecek Para Birimi'),
+          const Text(
+              'Could you please select the currency you want to convert?'),
           buildTextFormFieldSecondCurr(context),
           buildRegisterButton(context),
         ],
@@ -44,12 +45,13 @@ class _CurrencyFormWidgetState extends State<CurrencyFormWidget> {
     return Padding(
       padding: context.paddingMediumVertical,
       child: LoginInputFormField(
-        hintText: 'İsminiz',
+        hintText: 'Name',
         controller: _fullName,
         onSaved: (value) {
           _fullName.text = value!;
         },
-        validator: FormBuilderValidators.required(errorText: ApplicationConstants.VALIDATE_FORM_ERROR),
+        validator: FormBuilderValidators.required(
+            errorText: ApplicationConstants.VALIDATE_FORM_ERROR),
       ),
     );
   }
@@ -59,11 +61,12 @@ class _CurrencyFormWidgetState extends State<CurrencyFormWidget> {
       padding: context.paddingMediumVertical,
       child: LoginInputFormField(
         controller: _emailText,
-        hintText: 'Emailiniz',
+        hintText: 'E-mail',
         onSaved: (value) {
           _emailText.text = value!;
         },
-        validator: FormBuilderValidators.required(errorText: ApplicationConstants.VALIDATE_FORM_ERROR),
+        validator: FormBuilderValidators.required(
+            errorText: ApplicationConstants.VALIDATE_FORM_ERROR),
       ),
     );
   }
@@ -96,12 +99,14 @@ class _CurrencyFormWidgetState extends State<CurrencyFormWidget> {
           items: dropdownButtonList1.map((String value) {
             return DropdownMenuItem<String>(
               value: value,
-              child: Text(value, style: const TextStyle(color: Colors.white, fontSize: 18)),
+              child: Text(value,
+                  style: const TextStyle(color: Colors.white, fontSize: 18)),
             );
           }).toList(),
           selectedItemBuilder: (context) {
             return dropdownButtonList1.map((String value) {
-              return Text(value, style: const TextStyle(color: Colors.black, fontSize: 18));
+              return Text(value,
+                  style: const TextStyle(color: Colors.black, fontSize: 18));
             }).toList();
           },
           onChanged: (value) {
@@ -126,12 +131,14 @@ class _CurrencyFormWidgetState extends State<CurrencyFormWidget> {
           items: dropdownButtonList2.map((String value) {
             return DropdownMenuItem<String>(
               value: value,
-              child: Text(value, style: const TextStyle(color: Colors.white, fontSize: 18)),
+              child: Text(value,
+                  style: const TextStyle(color: Colors.white, fontSize: 18)),
             );
           }).toList(),
           selectedItemBuilder: (context) {
             return dropdownButtonList2.map((String value) {
-              return Text(value, style: const TextStyle(color: Colors.black, fontSize: 18));
+              return Text(value,
+                  style: const TextStyle(color: Colors.black, fontSize: 18));
             }).toList();
           },
           onChanged: (value) {
@@ -154,7 +161,8 @@ class _CurrencyFormWidgetState extends State<CurrencyFormWidget> {
         //primaryColor: context.theme.colorScheme.primary,
         minimumSize: Size(context.width, context.highValue),
         onPressed: () async {
-          if (_registerFormKey.currentState != null && _registerFormKey.currentState!.validate()) {
+          if (_registerFormKey.currentState != null &&
+              _registerFormKey.currentState!.validate()) {
             _registerFormKey.currentState!.save();
             SharedPreferences prefs = await SharedPreferences.getInstance();
             prefs.setBool('isLogin', true);
@@ -163,10 +171,13 @@ class _CurrencyFormWidgetState extends State<CurrencyFormWidget> {
             prefs.setString('firstCurr', dropdownValue1);
             prefs.setString('secondCurr', dropdownValue2);
             if (!mounted) return;
-            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const MainPage()), (route) => false);
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const MainPage()),
+                (route) => false);
           }
         },
-        title: CurrencyConstants.RESUME,
+        title: CurrencyConstants.CONTINUE,
       ),
     );
   }

@@ -14,5 +14,6 @@ class CurrencyConstants {
   static const String EXIST_EMAIL = "Bu e-mail adresine ait hesap zaten var.";
   static const String ERROR_EXCEPTION = "Üzgünüz, bir hata ile karşılaştık.";
   static const String SUCCESS = "Kayıt başarılı!. Giriş yapabilirsiniz.";
-  static const String RESUME = "Devam et";
+  static const String CONTINUE = "Continue";
+  static const String SAVE = "Save";
 }

@@ -4,19 +4,13 @@ class ImageManager {
   static ImageManager? _instance;
   static ImageManager get instance => _instance ??= ImageManager._init();
   ImageManager._init();
-  // String get introductionBg => toSvg(ImageConstants.INTRODUCTION_BG);
-  String get introductionBg => toPng(ImageConstants.INTRODUCTION_BG);
-  String get loginBg => toPng(ImageConstants.LOGIN_BG);
-  String get facebookIcon => toSvg(ImageConstants.FACEBOOK_ICON);
-  String get googleIcon => toSvg(ImageConstants.GOOGLE_ICON);
-  String get appleIcon => toSvg(ImageConstants.APPLE_ICON);
-  String get settingsIcon => toSvg(ImageConstants.SETTINGS_ICON);
-  String get contractsIcon => toSvg(ImageConstants.CONTRACTS_ICON);
-  String get offersIcon => toSvg(ImageConstants.OFFERS_ICON);
-  String get payIcon => toSvg(ImageConstants.PAY_ICON);
-  String get mockProfile => toSvg(ImageConstants.MOCK_PROFILE);
-  String get exitIcon => toPng(ImageConstants.EXIT_ICON);
+  String get loginBg => toJpeg(ImageConstants.LOGIN_BG);
+  String get profilePhoto => toJpeg(ImageConstants.PROFILE_PHOTO);
+  String get turkishDelight => toJpg(ImageConstants.TURKISH_DELIGHT);
+  String get turkishBaklava => toJpg(ImageConstants.TURKISH_BAKLAVA);
+  String get turkishCottonCandy => toJpg(ImageConstants.TURKISH_COTTON_CANDY);
+  String get turkishColdBaklava => toJpg(ImageConstants.TURKISH_COLD_BAKLAVA);
 
-  String toPng(String name) => 'assets/images/$name.png';
-  String toSvg(String name) => 'assets/svg/$name.svg';
+  String toJpg(String name) => 'assets/images/$name.jpg';
+  String toJpeg(String name) => 'assets/images/$name.jpeg';
 }

@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:tag_eyes_app/core/constants/image_manager.dart';
 import 'package:tag_eyes_app/core/extension/context_extension.dart';
 import 'package:tag_eyes_app/widgets/form/currency_form_widget.dart';
+import 'package:tag_eyes_app/widgets/form/my_wallet_widget.dart';
 
-class CurrencyPage extends StatelessWidget {
-  const CurrencyPage({Key? key}) : super(key: key);
+class MyWalletPage extends StatelessWidget {
+  const MyWalletPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,28 +17,22 @@ class CurrencyPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(
-                'Currency Converter',
+                'My Wallet',
                 style: context.textTheme.headlineSmall!.copyWith(
                     color: context.theme.colorScheme.primary, fontSize: 36),
               ),
               const SizedBox(height: 50),
-              Container(
-                width: 130,
-                height: 130,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage(ImageManager.instance.loginBg))),
-              ),
+              const Text("How much money do you have?"),
               const SizedBox(height: 50),
-              Container(
+              Container(/* 
                 decoration: BoxDecoration(
                   borderRadius:
                       const BorderRadius.vertical(top: Radius.circular(40)),
                   color: context.theme.colorScheme.primary,
-                ),
+                ), */
                 child: Padding(
                   padding: context.paddingHighVerticalAndHorizontal,
-                  child: const CurrencyFormWidget(),
+                  child: const MyWalletWidget(),
                 ),
               ),
             ],

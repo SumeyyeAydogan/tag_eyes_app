@@ -24,7 +24,7 @@ class _CustomElevationButtonState extends State<CustomElevationButton> {
       onPressed: _completeProcess,
       style: ElevatedButton.styleFrom(
         minimumSize: widget.minimumSize,
-        backgroundColor: context.theme.colorScheme.secondary,
+        backgroundColor: Colors.white70,//context.theme.colorScheme.secondary,
         shape: widget.isCircle ? const CircleBorder(side: BorderSide.none) : null,
       ),
       child: Text(widget.title, style: context.textTheme.labelLarge),
