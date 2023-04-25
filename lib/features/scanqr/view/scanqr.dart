@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:tag_eyes_app/features/product/view/product_page.dart';
 
 class ScanQR extends StatefulWidget {
   const ScanQR({super.key});
@@ -19,7 +20,8 @@ class _ScanQRState extends State<ScanQR> {
       setState(() => result = scanData);
       if (result != null) {
         controller.pauseCamera();
-        Navigator.pop(context, result!.code);
+        if (!mounted) return;
+        Navigator.push(context, MaterialPageRoute(builder: (context) => ProductPage(barcode: result!.code)));
       }
     });
   }

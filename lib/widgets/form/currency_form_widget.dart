@@ -25,6 +25,7 @@ class _CurrencyFormWidgetState extends State<CurrencyFormWidget> {
     return Form(
       key: _registerFormKey,
       child: ListView(
+        physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         children: [
           buildTextFormFieldName(context),
@@ -117,7 +118,7 @@ class _CurrencyFormWidgetState extends State<CurrencyFormWidget> {
 
   buildTextFormFieldSecondCurr(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+      padding: const EdgeInsets.only(top: 10, left: 50, right: 50),
       child: DropdownButtonHideUnderline(
         child: DropdownButton(
           hint: const Text('Dönüştürülecek Para Birimi'),
@@ -147,7 +148,8 @@ class _CurrencyFormWidgetState extends State<CurrencyFormWidget> {
 
   buildRegisterButton(BuildContext context) {
     return Padding(
-      padding: context.paddingHighVertical,
+      // padding: context.paddingHighVertical,
+      padding: const EdgeInsets.only(top: 0, left: 20, right: 20),
       child: CustomElevationButton(
         //primaryColor: context.theme.colorScheme.primary,
         minimumSize: Size(context.width, context.highValue),

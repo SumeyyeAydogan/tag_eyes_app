@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: TagEyesTheme.defaultTheme,
       home: const LoggedIn(),
@@ -40,8 +41,8 @@ class _LoggedInState extends State<LoggedIn> {
 
   Future<void> _getInformation() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool isLogin = prefs.getBool('isLogin')!;
-    if (isLogin == false) {
+    bool? isLogin = prefs.getBool('isLogin');
+    if (isLogin == false || isLogin == null) {
       setState(() {
         _isLoggedIn = false;
       });
