@@ -16,10 +16,10 @@ class MyWalletWidget extends StatefulWidget {
 }
 
 class _MyWalletWidgetState extends State<MyWalletWidget> {
-  final TextEditingController _TRY = TextEditingController();
-  final TextEditingController _USD = TextEditingController();
-  final TextEditingController _EUR = TextEditingController();
-  final TextEditingController _GBP = TextEditingController();
+  final TextEditingController currTRY = TextEditingController();
+  final TextEditingController currUSD = TextEditingController();
+  final TextEditingController currEUR = TextEditingController();
+  final TextEditingController currGBP = TextEditingController();
   final _walletFormKey = GlobalKey<FormState>();
 
   @override
@@ -44,13 +44,13 @@ class _MyWalletWidgetState extends State<MyWalletWidget> {
     return Padding(
       padding: context.paddingMediumVertical,
       child: LoginInputFormField(
-        controller: _TRY,
+        controller: currTRY,
         hintText: 'TRY',
+        keyboardType: TextInputType.number,
         onSaved: (value) {
-          _TRY.text = value!;
+          currTRY.text = value!;
         },
-        validator: FormBuilderValidators.required(
-            errorText: ApplicationConstants.VALIDATE_FORM_ERROR),
+        validator: FormBuilderValidators.required(errorText: ApplicationConstants.VALIDATE_FORM_ERROR),
       ),
     );
   }
@@ -59,13 +59,12 @@ class _MyWalletWidgetState extends State<MyWalletWidget> {
     return Padding(
       padding: context.paddingMediumVertical,
       child: LoginInputFormField(
-        controller: _USD,
+        controller: currUSD,
         hintText: 'USD',
         onSaved: (value) {
-          _USD.text = value!;
+          currUSD.text = value!;
         },
-        validator: FormBuilderValidators.required(
-            errorText: ApplicationConstants.VALIDATE_FORM_ERROR),
+        validator: FormBuilderValidators.required(errorText: ApplicationConstants.VALIDATE_FORM_ERROR),
       ),
     );
   }
@@ -74,13 +73,12 @@ class _MyWalletWidgetState extends State<MyWalletWidget> {
     return Padding(
       padding: context.paddingMediumVertical,
       child: LoginInputFormField(
-        controller: _EUR,
+        controller: currEUR,
         hintText: 'EUR',
         onSaved: (value) {
-          _TRY.text = value!;
+          currTRY.text = value!;
         },
-        validator: FormBuilderValidators.required(
-            errorText: ApplicationConstants.VALIDATE_FORM_ERROR),
+        validator: FormBuilderValidators.required(errorText: ApplicationConstants.VALIDATE_FORM_ERROR),
       ),
     );
   }
@@ -89,40 +87,33 @@ class _MyWalletWidgetState extends State<MyWalletWidget> {
     return Padding(
       padding: context.paddingMediumVertical,
       child: LoginInputFormField(
-        controller: _GBP,
+        controller: currGBP,
         hintText: 'GBP',
         onSaved: (value) {
-          _USD.text = value!;
+          currUSD.text = value!;
         },
-        validator: FormBuilderValidators.required(
-            errorText: ApplicationConstants.VALIDATE_FORM_ERROR),
+        validator: FormBuilderValidators.required(errorText: ApplicationConstants.VALIDATE_FORM_ERROR),
       ),
     );
   }
 
-
   buildSaveButton(BuildContext context) {
     return Padding(
-      // padding: context.paddingHighVertical,
       padding: const EdgeInsets.only(top: 0, left: 20, right: 20),
       child: CustomElevationButton(
         primaryColor: context.theme.colorScheme.primary,
         minimumSize: Size(context.width, context.highValue),
         onPressed: () async {
-          if (_walletFormKey.currentState != null &&
-              _walletFormKey.currentState!.validate()) {
+          if (_walletFormKey.currentState != null && _walletFormKey.currentState!.validate()) {
             _walletFormKey.currentState!.save();
             SharedPreferences prefs = await SharedPreferences.getInstance();
             prefs.setBool('isLogin', true);
-            prefs.setString('TRY', _TRY.text);
-            prefs.setString('USD', _USD.text);
-            prefs.setString('EUR', _EUR.text);
-            prefs.setString('GBP', _GBP.text);
+            prefs.setString('TRY', currTRY.text);
+            prefs.setString('USD', currUSD.text);
+            prefs.setString('EUR', currEUR.text);
+            prefs.setString('GBP', currGBP.text);
             if (!mounted) return;
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => const MainPage()),
-                (route) => false);
+            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const MainPage()), (route) => false);
           }
         },
         title: CurrencyConstants.SAVE,

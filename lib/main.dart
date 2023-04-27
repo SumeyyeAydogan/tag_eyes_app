@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tag_eyes_app/core/init/theme/tag_eyes_theme.dart';
 import 'package:tag_eyes_app/features/bottom_nav_bar/main_view.dart';
+import 'package:tag_eyes_app/model/user_model.dart';
 
 import 'features/currency/view/currency_view.dart';
 
 void main() {
   runApp(const MyApp());
 }
+
+SharedPreferences? prefs;
+late UserModel userModel;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -40,13 +44,19 @@ class _LoggedInState extends State<LoggedIn> {
   }
 
   Future<void> _getInformation() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool? isLogin = prefs.getBool('isLogin');
+    prefs = await SharedPreferences.getInstance();
+    bool? isLogin = prefs?.getBool('isLogin');
     if (isLogin == false || isLogin == null) {
       setState(() {
         _isLoggedIn = false;
       });
     } else {
+      userModel = UserModel(
+        curr1: prefs!.getString('firstCurr')!,
+        curr2: prefs!.getString('secondCurr')!,
+        email: prefs!.getString('email')!,
+        fullName: prefs!.getString('fullName')!,
+      );
       setState(() {
         _isLoggedIn = true;
       });

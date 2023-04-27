@@ -40,6 +40,9 @@ dependencies:
   shared_preferences: ^2.1.0
   qr_code_scanner: ^1.0.1
   carousel_slider: ^4.2.1
+  money_converter: ^2.0.2
+  image_picker: ^0.8.7+4
+  path_provider: ^2.0.14
 
 dev_dependencies:
   flutter_test:

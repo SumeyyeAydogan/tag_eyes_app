@@ -5,6 +5,7 @@ class LoginInputFormField extends TextFormField {
     Key? key,
     String? title,
     String? hintText,
+    TextInputType? keyboardType,
     bool isSecure = false,
     Widget? suffixIcon,
     Widget? prefixIcon,
@@ -17,9 +18,7 @@ class LoginInputFormField extends TextFormField {
   }) : super(
           key: key,
           controller: controller,
-          onChanged: (text) {
-            debugPrint("onchanged çalıştı");
-          },
+          keyboardType: keyboardType,
           validator: validator,
           onSaved: onSaved,
           onTap: onTap,

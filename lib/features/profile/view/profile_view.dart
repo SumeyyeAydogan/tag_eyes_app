@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tag_eyes_app/core/extension/context_extension.dart';
 import 'package:tag_eyes_app/features/currency/view/currency_view.dart';
 
@@ -21,11 +22,21 @@ class _ProfilePageState extends State<ProfilePage> {
   ];
 
   final List<Widget> list = [
-    Column(children: const [Text("My Cart")],),
-    Column(children: const [Text("Theme")],),
-    Column(children: const [Text("Invite a friend")],),
-    Column(children: const [Text("Reach us")],),
-    Column(children: const [Text("Log Out")],),
+    Column(
+      children: const [Text("My Cart")],
+    ),
+    Column(
+      children: const [Text("Theme")],
+    ),
+    Column(
+      children: const [Text("Invite a friend")],
+    ),
+    Column(
+      children: const [Text("Reach us")],
+    ),
+    Column(
+      children: const [Text("Log Out")],
+    ),
   ];
 
   final mockListIcon = [
@@ -39,25 +50,20 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-          body: Container(
-        decoration: BoxDecoration(
-          color: context.theme.colorScheme.primary,
-        ),
+      body: Container(
+        decoration: BoxDecoration(color: context.theme.colorScheme.primary),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Expanded(
-                flex: 1,
-                child: Container(
-                  color: Colors.transparent,
-                )),
-            _BodyBuildWidget(
-                list: list,
-                mockListTitle: mockListTitle,
-                mockListIcon: mockListIcon),
+              flex: 1,
+              child: Container(color: Colors.transparent),
+            ),
+            _BodyBuildWidget(list: list, mockListTitle: mockListTitle, mockListIcon: mockListIcon),
           ],
         ),
-      ));
+      ),
+    );
   }
 }
 
@@ -76,39 +82,38 @@ class _BodyBuildWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        flex: 9,
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.grey[50],
-            borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(30), topRight: Radius.circular(30)),
-          ),
-          child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(
-                        flex: 0,
-                        child: Padding(
-                            padding: context.paddingMediumVertical,
-                            child: CircleAvatar(
-                                maxRadius: 40,
-                                child: Image.asset(
-                                          ImageManager.instance.profilePhoto,
-                                          fit: BoxFit.cover,
-                                        ),
-                                ))),
-                    const _UserTitleWidget(fullName: "Sümeyye Aydoğan"),
-                    _UserProfileListWidgets(
-                        list: list,
-                        mockListTitle: mockListTitle,
-                        mockListIcon: mockListIcon),
-                  ],
+      flex: 9,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.grey[50],
+          borderRadius: const BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              flex: 0,
+              child: Padding(
+                padding: context.paddingMediumVertical,
+                child: CircleAvatar(
+                  maxRadius: 40,
+                  child: Image.asset(
+                    ImageManager.instance.profilePhoto,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-        ));
+              ),
+            ),
+            const _UserTitleWidget(fullName: "Sümeyye Aydoğan"),
+            _UserProfileListWidgets(list: list, mockListTitle: mockListTitle, mockListIcon: mockListIcon),
+          ],
+        ),
+      ),
+    );
   }
 }
 
-class _UserProfileListWidgets extends StatelessWidget {
+class _UserProfileListWidgets extends StatefulWidget {
   const _UserProfileListWidgets({
     Key? key,
     required this.list,
@@ -121,66 +126,73 @@ class _UserProfileListWidgets extends StatelessWidget {
   final List<IconData> mockListIcon;
 
   @override
+  State<_UserProfileListWidgets> createState() => _UserProfileListWidgetsState();
+}
+
+class _UserProfileListWidgetsState extends State<_UserProfileListWidgets> {
+  @override
   Widget build(BuildContext context) {
     return Expanded(
-        flex: 8,
-        child: ListView.builder(
-          shrinkWrap: true,
-          itemCount: mockListTitle.length,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: context.paddingHighHorizontal,
-              child: InkWell(
-                onTap: () {
-                  if (index == 4) {
-                    quit(context);
-                  } else {
-                    showModalBottomSheet(
-                        useRootNavigator: true,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(30),
-                          ),
-                        ),
-                        isScrollControlled: true,
-                        context: context, 
-                        builder: (context) => list[index]);
-                  }
-                },
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30)),
-                  elevation: 0,
-                  color: context.theme.colorScheme.primary,
-                  child: Padding(
-                    padding: context.paddingMediumLowVertical,
-                    child: ListTile(
-                      title: Text(
-                        mockListTitle[index],
-                        style: TagEyesTheme.defaultTheme.textTheme.headline3,
+      flex: 8,
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: widget.mockListTitle.length,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: context.paddingHighHorizontal,
+            child: InkWell(
+              onTap: () async {
+                if (index == 4) {
+                  await quit(context);
+                } else {
+                  showModalBottomSheet(
+                    useRootNavigator: true,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(30),
                       ),
-                      leading: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(50)),
-                        child: Padding(
-                          padding: context.paddingLow,
-                          child: Icon(mockListIcon[index]),
-                        ),
-                      ),
-                      trailing: const Icon(Icons.arrow_forward_ios),
                     ),
+                    isScrollControlled: true,
+                    context: context,
+                    builder: (context) => widget.list[index],
+                  );
+                }
+              },
+              child: Card(
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                elevation: 0,
+                color: context.theme.colorScheme.primary,
+                child: Padding(
+                  padding: context.paddingMediumLowVertical,
+                  child: ListTile(
+                    title: Text(
+                      widget.mockListTitle[index],
+                      style: TagEyesTheme.defaultTheme.textTheme.displaySmall,
+                    ),
+                    leading: Container(
+                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(50)),
+                      child: Padding(
+                        padding: context.paddingLow,
+                        child: Icon(widget.mockListIcon[index]),
+                      ),
+                    ),
+                    trailing: const Icon(Icons.arrow_forward_ios),
                   ),
                 ),
               ),
-            );
-          },
-        ));
+            ),
+          );
+        },
+      ),
+    );
   }
-}
 
-void quit(BuildContext context) {
-  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const CurrencyPage()), (route) => false);
+  Future<void> quit(BuildContext context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isLogin', false);
+    if (!mounted) return;
+    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const CurrencyPage()), (route) => false);
+  }
 }
 
 class _UserTitleWidget extends StatelessWidget {
@@ -198,7 +210,7 @@ class _UserTitleWidget extends StatelessWidget {
           padding: context.paddingMediumVertical,
           child: Text(
             fullName,
-            style: TagEyesTheme.defaultTheme.textTheme.headline1,
+            style: TagEyesTheme.defaultTheme.textTheme.displayLarge,
           ),
         ));
   }

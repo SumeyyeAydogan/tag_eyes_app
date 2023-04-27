@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 extension ContextExtension on BuildContext {
+  double dynamicWidth(double val) => (MediaQuery.of(this).size.width / 430) * val;
+  double dynamicHeight(double val) => (MediaQuery.of(this).size.height / 932) * val;
+
   MediaQueryData get mediaQuery => MediaQuery.of(this);
 }
 
@@ -13,7 +16,6 @@ extension MediaQueryExtension on BuildContext {
   double get mediumLowValue => height * 0.015;
   double get highValue => height * 0.05;
   double get extraHighValue => height * 0.15;
-
 }
 
 extension ThemeExtension on BuildContext {
@@ -32,15 +34,16 @@ extension PaddingExtensionAll on BuildContext {
 }
 
 extension PaddingExtensionSymetric on BuildContext {
-  EdgeInsets get paddingLowVertical => EdgeInsets.symmetric(vertical: lowValue,);
+  EdgeInsets get paddingLowVertical => EdgeInsets.symmetric(
+        vertical: lowValue,
+      );
   EdgeInsets get paddingNormalVertical => EdgeInsets.symmetric(vertical: normalValue);
   EdgeInsets get paddingMediumVertical => EdgeInsets.symmetric(vertical: mediumValue);
   EdgeInsets get paddingMediumLowVertical => EdgeInsets.symmetric(vertical: mediumLowValue);
   EdgeInsets get paddingHighVertical => EdgeInsets.symmetric(vertical: highValue);
   EdgeInsets get paddingExtraHighVertical => EdgeInsets.symmetric(vertical: extraHighValue);
   EdgeInsets get paddingBottomMedium => const EdgeInsets.only(bottom: 45);
-  EdgeInsets get paddingHighVerticalAndHorizontal =>
-      EdgeInsets.symmetric(vertical: mediumValue, horizontal: mediumValue * 2);
+  EdgeInsets get paddingHighVerticalAndHorizontal => EdgeInsets.symmetric(vertical: mediumValue, horizontal: mediumValue * 2);
 
   EdgeInsets get paddingLowHorizontal => EdgeInsets.symmetric(horizontal: lowValue);
   EdgeInsets get paddingNormalHorizontal => EdgeInsets.symmetric(horizontal: normalValue);

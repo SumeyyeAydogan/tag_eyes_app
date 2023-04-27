@@ -9,34 +9,38 @@ class CurrencyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: SizedBox(
-          height: context.height,
+      body: SizedBox(
+        height: context.height,
+        child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text(
-                'Currency Converter',
-                style: context.textTheme.headlineSmall!.copyWith(
-                    color: context.theme.colorScheme.primary, fontSize: 36),
+              Column(
+                children: [
+                  SizedBox(height: context.dynamicHeight(80)),
+                  Text(
+                    'Currency Converter',
+                    style: context.textTheme.headlineSmall!.copyWith(color: context.theme.colorScheme.primary, fontSize: 30),
+                  ),
+                  SizedBox(height: context.dynamicHeight(30)),
+                  Container(
+                    width: context.dynamicWidth(100),
+                    height: context.dynamicHeight(100),
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(ImageManager.instance.loginBg),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 50),
-              Container(
-                width: 130,
-                height: 130,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage(ImageManager.instance.loginBg))),
-              ),
-              const SizedBox(height: 50),
               Container(
                 decoration: BoxDecoration(
-                  borderRadius:
-                      const BorderRadius.vertical(top: Radius.circular(40)),
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(40)),
                   color: context.theme.colorScheme.primary,
                 ),
                 child: Padding(
-                  padding: context.paddingHighVerticalAndHorizontal,
+                  padding: context.paddingHighHorizontal,
                   child: const CurrencyFormWidget(),
                 ),
               ),
