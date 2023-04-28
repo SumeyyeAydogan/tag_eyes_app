@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tag_eyes_app/core/extension/context_extension.dart';
 import 'package:tag_eyes_app/features/currency/view/currency_view.dart';
+import 'package:tag_eyes_app/features/wallet_card/view/wallet_card.dart';
+import 'package:tag_eyes_app/main.dart';
 
 import '../../../core/constants/image_manager.dart';
 import '../../../core/init/theme/tag_eyes_theme.dart';
@@ -22,9 +24,7 @@ class _ProfilePageState extends State<ProfilePage> {
   ];
 
   final List<Widget> list = [
-    Column(
-      children: const [Text("My Cart")],
-    ),
+    const WalletCard(),
     Column(
       children: const [Text("Theme")],
     ),
@@ -104,7 +104,8 @@ class _BodyBuildWidget extends StatelessWidget {
                 ),
               ),
             ),
-            const _UserTitleWidget(fullName: "Sümeyye Aydoğan"),
+            _UserTitleWidget(fullName: userModel.fullName),
+            _UserTitleWidget(fullName: userModel.email),
             _UserProfileListWidgets(list: list, mockListTitle: mockListTitle, mockListIcon: mockListIcon),
           ],
         ),

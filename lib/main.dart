@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tag_eyes_app/core/init/theme/tag_eyes_theme.dart';
 import 'package:tag_eyes_app/features/bottom_nav_bar/main_view.dart';
+import 'package:tag_eyes_app/features/product/view/product_page.dart';
 import 'package:tag_eyes_app/model/user_model.dart';
 
 import 'features/currency/view/currency_view.dart';
@@ -65,6 +66,20 @@ class _LoggedInState extends State<LoggedIn> {
 
   @override
   Widget build(BuildContext context) {
+    String barcode = 'productName-10-USD-productDescription';
+    // switch (_isLoggedIn) {
+    //   case true:
+    //     return ProductPage(barcode: barcode);
+    //   case false:
+    //     return const CurrencyPage();
+    //   default:
+    //     return const Scaffold(
+    //       body: Center(
+    //         child: CircularProgressIndicator(),
+    //       ),
+    //     );
+    // }
+    // return ProductPage(barcode: barcode);
     switch (_isLoggedIn) {
       case true:
         return const MainPage();

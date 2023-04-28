@@ -24,9 +24,6 @@ class _CurrencyFormWidgetState extends State<CurrencyFormWidget> {
   final TextEditingController _fullName = TextEditingController();
   final TextEditingController _emailText = TextEditingController();
   final _registerFormKey = GlobalKey<FormState>();
-  final ImagePicker _picker = ImagePicker();
-  XFile? _pickedFile;
-  File? _imageFile;
 
   @override
   void initState() {
@@ -56,122 +53,6 @@ class _CurrencyFormWidgetState extends State<CurrencyFormWidget> {
 
   buildSelectImage(BuildContext context) {
     return const Icon(Icons.person, size: 50);
-    // if (_imageFile == null) {
-    //   return Center(
-    //     child: GestureDetector(
-    //       onTap: () async {
-    //         await getImage();
-    //       },
-    //       child: Container(
-    //         height: context.dynamicHeight(50),
-    //         width: context.dynamicWidth(200),
-    //         decoration: BoxDecoration(
-    //           color: Colors.grey,
-    //           borderRadius: BorderRadius.circular(50),
-    //         ),
-    //         child: Icon(
-    //           Icons.add_a_photo,
-    //           size: context.dynamicWidth(30),
-    //         ),
-    //       ),
-    //     ),
-    //   );
-    // } else {
-    //   return SizedBox(
-    //     height: context.dynamicHeight(150),
-    //     child: Image.file(_imageFile!),
-    //   );
-    // }
-    // _imageFile == null
-    //     ? Center(
-    //         child: GestureDetector(
-    //           onTap: () async {
-    //             await getImage();
-    //           },
-    //           child: Container(
-    //             height: 50,
-    //             width: 200,
-    //             decoration: BoxDecoration(
-    //               color: Colors.grey,
-    //               borderRadius: BorderRadius.circular(50),
-    //             ),
-    //             child: const Icon(
-    //               Icons.add_a_photo,
-    //               size: 30,
-    //             ),
-    //           ),
-    //         ),
-    //       )
-    //     : SizedBox(
-    //         height: 200,
-    //         child: Image.file(_imageFile!),
-    //       );
-    // (() {
-    //   bool? isImageSelected = prefs?.getBool('isImageSelected');
-    //   if (isImageSelected == null || isImageSelected == false) {
-    //     return Center(
-    //       child: GestureDetector(
-    //         onTap: () async {
-    //           await getImage();
-    //         },
-    //         child: Container(
-    //           height: 50,
-    //           width: 200,
-    //           decoration: BoxDecoration(
-    //             color: Colors.grey,
-    //             borderRadius: BorderRadius.circular(50),
-    //           ),
-    //           child: const Icon(
-    //             Icons.add_a_photo,
-    //             size: 30,
-    //           ),
-    //         ),
-    //       ),
-    //     );
-    //   } else {
-    //     String? imagePath = prefs?.getString('imagePath');
-    //     return Center(
-    //       child: GestureDetector(
-    //         onTap: () async {
-    //           await getImage();
-    //         },
-    //         child: Container(
-    //           height: 50,
-    //           width: 200,
-    //           decoration: BoxDecoration(
-    //             color: Colors.grey,
-    //             borderRadius: BorderRadius.circular(50),
-    //           ),
-    //           child: Image.file(
-    //             File(imagePath!),
-    //             fit: BoxFit.cover,
-    //           ),
-    //         ),
-    //       ),
-    //     );
-    //   }
-    // })();
-  }
-
-  Future getImage() async {
-    _pickedFile = await _picker.pickImage(source: ImageSource.gallery);
-    String? path;
-    await getApplicationDocumentsDirectory().then((value) {
-      path = value.path;
-    });
-    await _pickedFile?.saveTo('$path/currentUserImage.jpg');
-    debugPrint('saved path:$path/currentUserImage.jpg');
-    prefs?.setBool('isImageSelected', true);
-    prefs?.setString('userImagePath', '$path/currentUserImage');
-    setState(() {
-      if (_pickedFile != null) {
-        setState(() {
-          _imageFile = File(_pickedFile!.path);
-        });
-      } else {
-        debugPrint('No image selected.');
-      }
-    });
   }
 
   buildTextFormFieldName(BuildContext context) {

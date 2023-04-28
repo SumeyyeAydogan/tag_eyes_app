@@ -60,6 +60,7 @@ class _MyWalletWidgetState extends State<MyWalletWidget> {
       padding: context.paddingMediumVertical,
       child: LoginInputFormField(
         controller: currUSD,
+        keyboardType: TextInputType.number,
         hintText: 'USD',
         onSaved: (value) {
           currUSD.text = value!;
@@ -74,9 +75,10 @@ class _MyWalletWidgetState extends State<MyWalletWidget> {
       padding: context.paddingMediumVertical,
       child: LoginInputFormField(
         controller: currEUR,
+        keyboardType: TextInputType.number,
         hintText: 'EUR',
         onSaved: (value) {
-          currTRY.text = value!;
+          currEUR.text = value!;
         },
         validator: FormBuilderValidators.required(errorText: ApplicationConstants.VALIDATE_FORM_ERROR),
       ),
@@ -88,9 +90,10 @@ class _MyWalletWidgetState extends State<MyWalletWidget> {
       padding: context.paddingMediumVertical,
       child: LoginInputFormField(
         controller: currGBP,
+        keyboardType: TextInputType.number,
         hintText: 'GBP',
         onSaved: (value) {
-          currUSD.text = value!;
+          currGBP.text = value!;
         },
         validator: FormBuilderValidators.required(errorText: ApplicationConstants.VALIDATE_FORM_ERROR),
       ),
@@ -107,13 +110,15 @@ class _MyWalletWidgetState extends State<MyWalletWidget> {
           if (_walletFormKey.currentState != null && _walletFormKey.currentState!.validate()) {
             _walletFormKey.currentState!.save();
             SharedPreferences prefs = await SharedPreferences.getInstance();
-            prefs.setBool('isLogin', true);
-            prefs.setString('TRY', currTRY.text);
-            prefs.setString('USD', currUSD.text);
-            prefs.setString('EUR', currEUR.text);
-            prefs.setString('GBP', currGBP.text);
-            if (!mounted) return;
-            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const MainPage()), (route) => false);
+            await prefs.setBool('isLogin', true);
+            await prefs.setString('TRY', currTRY.text);
+            await prefs.setString('USD', currUSD.text);
+            await prefs.setString('EUR', currEUR.text);
+            await prefs.setString('GBP', currGBP.text);
+            currTRY.clear();
+            currUSD.clear();
+            currEUR.clear();
+            currGBP.clear();
           }
         },
         title: CurrencyConstants.SAVE,
