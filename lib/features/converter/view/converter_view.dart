@@ -1,8 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:money_converter/Currency.dart';
-import 'package:money_converter/money_converter.dart';
 import 'package:tag_eyes_app/core/extension/context_extension.dart';
 import 'package:tag_eyes_app/core/init/theme/tag_eyes_theme.dart' as theme;
 import 'package:http/http.dart' as http;
@@ -39,119 +37,125 @@ class ConverterPage extends StatefulWidget {
 class _ConverterPageState extends State<ConverterPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Card(
-          color: theme.TagEyesTheme.defaultTheme.colorScheme.primary,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: context.dynamicWidth(50), vertical: context.dynamicHeight(10)),
-                child: const Text('Çevrilecek Para Birimi', style: TextStyle(fontSize: 20)),
-              ),
-              Row(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(top: context.dynamicHeight(10), left: context.dynamicWidth(30), right: 0),
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton(
-                        hint: const Text('Çevrilecek Para Birimi'),
-                        value: _dropdownValue1,
-                        items: _dropdownButtonList1.map((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value, style: const TextStyle(color: Colors.white, fontSize: 18)),
-                          );
-                        }).toList(),
-                        selectedItemBuilder: (context) {
-                          return _dropdownButtonList1.map((String value) {
-                            return Text(value, style: const TextStyle(color: Colors.black, fontSize: 18));
-                          }).toList();
-                        },
-                        onChanged: (value) {
-                          setState(() {
-                            _dropdownValue1 = value.toString();
-                          });
-                        },
-                        borderRadius: BorderRadius.circular(10),
-                        dropdownColor: Colors.black,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: LoginInputFormField(
-                      controller: curr1,
-                      onTap: () {
-                        curr1.clear();
-                      },
-                      keyboardType: TextInputType.number,
-                    ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: context.dynamicWidth(50), vertical: context.dynamicHeight(10)),
-                child: const Text('Dönüştürülecek Para Birimi', style: TextStyle(fontSize: 20)),
-              ),
-              Row(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(top: context.dynamicHeight(10), left: context.dynamicWidth(30), right: 0),
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton(
-                        hint: const Text('Dönüştürülecek Para Birimi'),
-                        value: _dropdownValue2,
-                        items: _dropdownButtonList2.map((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value, style: const TextStyle(color: Colors.white, fontSize: 18)),
-                          );
-                        }).toList(),
-                        selectedItemBuilder: (context) {
-                          return _dropdownButtonList2.map((String value) {
-                            return Text(value, style: const TextStyle(color: Colors.black, fontSize: 18));
-                          }).toList();
-                        },
-                        onChanged: (value) {
-                          setState(() {
-                            _dropdownValue2 = value.toString();
-                          });
-                        },
-                        borderRadius: BorderRadius.circular(10),
-                        dropdownColor: Colors.black,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Center(child: Text(curr2.text, style: const TextStyle(fontSize: 20))),
-                  ),
-                ],
-              ),
-              Center(
-                child: OutlinedButton(
-                  onPressed: () async {
-                    _convertCurrency();
-                  },
-                  child: (() {
-                    if (_isLoading) {
-                      return const SizedBox(
-                        height: 20,
-                        width: 20,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          color: Colors.black,
-                        ),
-                      );
-                    } else {
-                      return const Text('Dönüştür', style: TextStyle(fontSize: 20, color: Colors.black));
-                    }
-                  }()),
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        setState(() {});
+      },
+      child: Scaffold(
+        body: Center(
+          child: Card(
+            color: theme.TagEyesTheme.defaultTheme.colorScheme.primary,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: context.dynamicWidth(50), vertical: context.dynamicHeight(10)),
+                  child: const Text('Çevrilecek Para Birimi', style: TextStyle(fontSize: 20)),
                 ),
-              ),
-            ],
+                Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(top: context.dynamicHeight(10), left: context.dynamicWidth(30), right: 0),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton(
+                          hint: const Text('Çevrilecek Para Birimi'),
+                          value: _dropdownValue1,
+                          items: _dropdownButtonList1.map((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value, style: const TextStyle(color: Colors.white, fontSize: 18)),
+                            );
+                          }).toList(),
+                          selectedItemBuilder: (context) {
+                            return _dropdownButtonList1.map((String value) {
+                              return Text(value, style: const TextStyle(color: Colors.black, fontSize: 18));
+                            }).toList();
+                          },
+                          onChanged: (value) {
+                            setState(() {
+                              _dropdownValue1 = value.toString();
+                            });
+                          },
+                          borderRadius: BorderRadius.circular(10),
+                          dropdownColor: Colors.black,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: LoginInputFormField(
+                        controller: curr1,
+                        onTap: () {
+                          curr1.clear();
+                        },
+                        keyboardType: TextInputType.number,
+                      ),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: context.dynamicWidth(50), vertical: context.dynamicHeight(10)),
+                  child: const Text('Dönüştürülecek Para Birimi', style: TextStyle(fontSize: 20)),
+                ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(top: context.dynamicHeight(10), left: context.dynamicWidth(30), right: 0),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton(
+                          hint: const Text('Dönüştürülecek Para Birimi'),
+                          value: _dropdownValue2,
+                          items: _dropdownButtonList2.map((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value, style: const TextStyle(color: Colors.white, fontSize: 18)),
+                            );
+                          }).toList(),
+                          selectedItemBuilder: (context) {
+                            return _dropdownButtonList2.map((String value) {
+                              return Text(value, style: const TextStyle(color: Colors.black, fontSize: 18));
+                            }).toList();
+                          },
+                          onChanged: (value) {
+                            setState(() {
+                              _dropdownValue2 = value.toString();
+                            });
+                          },
+                          borderRadius: BorderRadius.circular(10),
+                          dropdownColor: Colors.black,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Center(child: Text(curr2.text, style: const TextStyle(fontSize: 20))),
+                    ),
+                  ],
+                ),
+                Center(
+                  child: OutlinedButton(
+                    onPressed: () async {
+                      _convertCurrency();
+                    },
+                    child: (() {
+                      if (_isLoading) {
+                        return const SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: Colors.black,
+                          ),
+                        );
+                      } else {
+                        return const Text('Dönüştür', style: TextStyle(fontSize: 20, color: Colors.black));
+                      }
+                    }()),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:tag_eyes_app/core/constants/image_manager.dart';
 import 'package:tag_eyes_app/core/extension/context_extension.dart';
 
-import 'package:tag_eyes_app/core/constants/image_manager.dart';
 import 'package:tag_eyes_app/main.dart';
 
 class WalletCard extends StatefulWidget {

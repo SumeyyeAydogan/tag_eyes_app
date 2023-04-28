@@ -1,5 +1,3 @@
-import 'image_constants.dart';
-
 class ImageManager {
   static ImageManager? _instance;
   static ImageManager get instance => _instance ??= ImageManager._init();

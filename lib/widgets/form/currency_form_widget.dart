@@ -1,15 +1,10 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tag_eyes_app/core/extension/context_extension.dart';
 import 'package:tag_eyes_app/core/constants/application_constants.dart';
 import 'package:tag_eyes_app/core/constants/register_constants.dart';
 import 'package:tag_eyes_app/features/bottom_nav_bar/main_view.dart';
-import 'package:tag_eyes_app/main.dart';
 import 'package:tag_eyes_app/widgets/button/custom_elevated_button.dart';
 import 'package:tag_eyes_app/widgets/input/login_form_input.dart';
 
